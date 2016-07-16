@@ -16,7 +16,7 @@ module.exports = {
         let proxyPath = req.param('proxyPath').split(':');
         let host = proxyPath[0];
         let port = proxyPath[1];
-        return res.view('proxy', {proxyHost: host, proxyPort: port});
+        return res.view('static-proxy', {proxyHost: host, proxyPort: port});
     }
 }
 ;

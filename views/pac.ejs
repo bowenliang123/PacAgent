@@ -1,0 +1,6 @@
+/** userName:<%= userName %> **/
+
+
+function FindProxyForURL(url, host) {
+    return "PROXY <%= proxyHost %>:<%= proxyPort %>; DIRECT";
+}

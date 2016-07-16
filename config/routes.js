@@ -48,4 +48,7 @@ module.exports.routes = {
 
 
   '/static/:proxyPath': 'StaticProxyController.staticProxy',
+  
+  '/pac/:userName':'PacController.pac',
+  '/set/:userName/:proxyPath':'PacController.set',
 };
