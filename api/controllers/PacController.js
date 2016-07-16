@@ -65,7 +65,7 @@ module.exports = {
                         userName: userName,
                         proxyHost: proxyHost,
                         proxyPort: proxyPort
-                    }).exec(function createCB(err, created) {
+                    }).exec((err, created) => {
                         if (err) {
                             return res.negotiate(err);
                         }
@@ -81,7 +81,7 @@ module.exports = {
                             proxyHost: proxyHost,
                             proxyPort: proxyPort
                         }
-                    ).exec(function createCB(err, updated) {
+                    ).exec((err, updated) => {
                         if (err) {
                             return res.negotiate(err);
                         }
