@@ -1,6 +1,6 @@
-/** userName:<%= userName %> **/
+/** userName:<% if (userProxy) { %><%= userProxy.userName %> <% } %> **/
 
 
 function FindProxyForURL(url, host) {
-    return "PROXY <%= proxyHost %>:<%= proxyPort %>; DIRECT";
+return "<% if (userProxy) { %>PROXY <%= userProxy.proxyHost %>:<%= userProxy.proxyPort %>; <% } %>DIRECT";
 }
