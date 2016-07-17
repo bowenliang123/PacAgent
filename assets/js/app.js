@@ -4,5 +4,12 @@
 'use strict';
 
 var app = angular.module('app', [
-    'indexCtrl'
+
+    'ngResource',
+
+
+    //controllers
+    'indexCtrl',
+
+    // 'Proxy'
 ]);

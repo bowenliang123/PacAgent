@@ -7,28 +7,28 @@
 'use strict';
 module.exports = {
 
-    attributes: {
-        //名称
-        name: {
-            type: 'string'
-        },
+  attributes: {
+    //名称
+    name: {
+      type: 'string'
+    },
 
-        /**
-         * 路由规则
-         */
-        rules:{
-            collection:'rule',
-            via:'owner'
-        },
+    /**
+     * 路由规则
+     */
+    rules:{
+      collection:'rule',
+      via:'owner'
+    },
 
-        //创建
-        createTime: {
-            type: 'datetime'
-        },
+    //创建
+    createTime: {
+      type: 'datetime'
+    },
 
-        // 更新时间
-        updateTime: {
-            type: 'datetime'
-        },
-    }
+    // 更新时间
+    updateTime: {
+      type: 'datetime'
+    },
+  }
 };

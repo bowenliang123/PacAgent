@@ -31,10 +31,14 @@ module.exports = {
 
         Proxy.findOne({
             name: name
-        }).exec((err, proxy)=> {
+        })
+            .populate('rules')
+            .exec((err, proxy)=> {
             if (err) {
                 return res.negotiate(err);
             }
+
+            console.log(JSON.stringify(proxy));
 
             //渲染PAC文件
             return renderPac(res, 'pac', proxy);

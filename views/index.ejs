@@ -1,21 +1,60 @@
 <div ng-app="app">
-<div class="container" ng-controller="indexCtrl">
-    <h1>Console</h1>
-    <form>
-        <div class="form-group row">
-            <label for="inputProxyName" class="col-sm-2 form-control-label">ProxyName</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputProxyName" placeholder="ProxyName" ng-model="proxyName">
+    <div class="container" ng-controller="indexCtrl">
+        <h1>Pacific</h1>
+        <form class="p-y-1">
+            <div class="form-group row">
+                <label for="inputProxyName" class="col-xs-2 form-control-label">ProxyName</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" id="inputProxyName" placeholder="ProxyName"
+                           ng-model="proxyName">
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary-outline btn-block" ng-click="loadProxy()">
+                    加载
+                </button>
+            </div>
+
+            <div class="form-group row" ng-show="isShowInputNewProxyPath">
+                <label for="inputNewProxyPath" class="col-xs-4 form-control-label">newProxyPath</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" id="inputNewProxyPath" placeholder="newProxyPath"
+                           ng-model="newProxyPath">
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-block" ng-click="onClickAddRule()">
+                        add
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div>
+        <div class="btn btn-success btn-block" ng-click="isShowInputNewProxyPath=!isShowInputNewProxyPath">+</div>
+        </div>
+        <div ng-if="proxy">
+            <div ng-repeat="rule in proxy.rules" class="row">
+                <div class="col-xs-5">
+                    {{rule.proxyPath}}
+                </div>
+
+                <div class="col-xs-5">
+                    <button class="btn btn-info" ng-click="onChangeIsEnabled(rule)">{{rule.isEnabled}}</button>
+                </div>
+
+                <div class="col-xs-2">
+                    <button class="btn btn-block btn-danger" ng-click="onClickDeleteRule(rule)">X</button>
+                </div>
+
+
             </div>
         </div>
-        <div>
-            <button class="btn btn-primary-outline" ng-click="haha()">
-                查询
-            </button>
-        </div>
-        <pre>{{text}}</pre>
-    </form>
-</div>
 
-<!--<script src="js/index.js"></script>-->
+        <div class="p-y-1" ng-if="text">
+            <h3>PAC:</h3>
+            <pre>{{text}}</pre>
+        </div>
+    </div>
+
+    <!--<script src="js/index.js"></script>-->
 </div>

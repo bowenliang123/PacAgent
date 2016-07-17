@@ -6,11 +6,13 @@ PAC file
 创建时间: <%= proxy.createTime %>
 更新时间: <%= proxy.updateTime %>
 当前时间: <%= new Date() %>
-规则总数: <% if (proxy.rules && proxy.rules.length > 0) { %> <%= proxy.rules.length %> <% } else { %>0<% } %>
+规则总数: <% if (proxy.rules) { %> <%= proxy.rules.length %> <% } else { %>0<% } %>
 **/
 
 function FindProxyForURL(url, host){
-return "<% if (proxy.rules && proxy.rules.length > 0) { %>PROXY <%- proxy.rules[0] %>;<% } %>DIRECT;";
+return "<% if (proxy.rules && proxy.rules.length > 0) {
+    proxy.rules.forEach(function(rule){
+        if (rule.isEnabled){ %>PROXY <%- rule.proxyPath %>;<%}}) } %>DIRECT;";
 }
 <% } else { %>
 // 未找到指定路由信息
