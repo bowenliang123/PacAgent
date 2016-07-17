@@ -8,10 +8,11 @@ angular.module('indexCtrl', [])
         $scope.isShowInputNewProxyPath = true;
         $scope.newProxyPath = '';
 
+        $scope.origin=location.href;
+
         $scope.loadProxy = ()=> {
             let proxys = Proxy.query(()=> {
                 $scope.proxy = proxys[0];
-                console.log($scope.proxy);
             });
 
             $scope.viewPac($scope.proxyName);
@@ -32,7 +33,9 @@ angular.module('indexCtrl', [])
             $scope.proxy.updateTime = new Date();
 
             // 执行
-            Proxy.save({id: $scope.proxy.id}, $scope.proxy);
+            Proxy.save({id: $scope.proxy.id}, $scope.proxy,()=>{
+                $scope.loadProxy();
+            });
 
             console.log('onClickAddRule' + $scope.newProxyPath);
 
@@ -50,20 +53,19 @@ angular.module('indexCtrl', [])
             rule.isEnabled = !rule.isEnabled;
             console.log('onChangeIsEnable');
 
-
-            console.log($scope.proxy);
+            // 更新时间
+            $scope.proxy.updateTime = new Date();
 
             // 执行
             Proxy.save({id: $scope.proxy.id}, $scope.proxy, () => {
-                console.log('heeh');
-                $scope.viewPac($scope.proxyName);
+                $scope.loadProxy();
             });
         };
 
         $scope.onClickDeleteRule = (rule)=> {
             // 执行
             Rule.delete({id: rule.id}, () => {
-                $scope.viewPac($scope.proxyName);
+                $scope.loadProxy();
             });
         };
 
