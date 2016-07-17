@@ -1,6 +1,6 @@
 <div ng-app="app">
     <div class="container" ng-controller="indexCtrl">
-        <h1>Pacific</h1>
+        <h3>Pacific</h3>
         <form class="p-y-1">
             <div class="form-group row">
                 <label for="inputProxyName" class="col-xs-2 form-control-label">ProxyName</label>
@@ -51,7 +51,8 @@
         </div>
 
         <div class="p-y-1" ng-if="text">
-            <h3>PAC:</h3>
+            <h5>PAC:</h5>
+            <a href="{{origin+'pac/'+proxyName}}">{{origin+'pac/'+proxyName}}</a>
             <pre>{{text}}</pre>
         </div>
     </div>
