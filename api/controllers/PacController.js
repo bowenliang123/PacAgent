@@ -10,13 +10,14 @@
  * 渲染PAC文件
  * @param res
  * @param viewName
- * @param userProxy
+ * @param proxy
  */
-let renderPac = (res, viewName, userProxy)=> {
+let renderPac = (res, viewName, proxy)=> {
     if (!res) {
         return;
     }
-    return res.view(viewName, {userProxy: userProxy});
+    //使用模板进行渲染, 显式要求不使用layout
+    return res.view('pac', {layout: '', proxy: proxy});
 };
 
 module.exports = {
@@ -26,17 +27,17 @@ module.exports = {
      * @param res
      */
     pac: (req, res)=> {
-        let userName = req.param('userName');
+        let name = req.param('name');
 
-        UserProxy.findOne({
-            userName: userName
-        }).exec((err, userProxy)=> {
+        Proxy.findOne({
+            name: name
+        }).exec((err, proxy)=> {
             if (err) {
                 return res.negotiate(err);
             }
 
             //渲染PAC文件
-            return renderPac(res, 'pac', userProxy);
+            return renderPac(res, 'pac', proxy);
         });
     },
 
@@ -47,53 +48,59 @@ module.exports = {
      * @param res
      */
     set: (req, res)=> {
-        let userName = req.param('userName');
+        let name = req.param('name');
+        let proxyPath = req.param('proxyPath');
 
-        let proxyPath = req.param('proxyPath').split(':');
-        let proxyHost = proxyPath[0];
-        let proxyPort = proxyPath[1];
+        let newRule = {
+            proxyPath: proxyPath,
+            isEnabled: true,
+            createTime: new Date()
+        };
 
-        UserProxy.findOne({
-            userName: userName
-        }).exec((err, userProxy)=> {
-                if (err) {
-                    return res.negotiate(err);
+        Proxy.findOne({
+            name: name
+        })
+            .populate('rules')
+            .exec((err, proxy)=> {
+                    if (err) {
+                        return res.negotiate(err);
+                    }
+                    if (!proxy) {
+                        //not found, create a new proxy info
+                        let newProxy = {
+                            name: name,
+                            rules: [newRule],
+                            createTime: new Date(),
+                            updateTime: new Date(),
+                        };
+
+                        Proxy.create(newProxy)
+                            .exec((err, created) => {
+                                if (err) {
+                                    return res.negotiate(err);
+                                }
+
+                                return res.send(created);
+                            });
+                    } else {
+                        // found, update the proxy info
+                        let newProxy = {
+                            name: name,
+                            rules: [newRule],
+                            updateTime: new Date(),
+                        };
+
+                        Proxy.update({name: name}, newProxy)
+                            .exec((err, updated) => {
+                                if (err) {
+                                    return res.negotiate(err);
+                                }
+
+                                return res.send(updated);
+                            });
+                    }
                 }
-                if (!userProxy) {
-
-                    UserProxy.create({
-                        userName: userName,
-                        proxyHost: proxyHost,
-                        proxyPort: proxyPort
-                    }).exec((err, created) => {
-                        if (err) {
-                            return res.negotiate(err);
-                        }
-
-                        return res.send('created ' + JSON.stringify(created));
-                    });
-                } else {
-                    UserProxy.update({
-                            userName: userName
-                        },
-                        {
-                            userName: userName,
-                            proxyHost: proxyHost,
-                            proxyPort: proxyPort
-                        }
-                    ).exec((err, updated) => {
-                        if (err) {
-                            return res.negotiate(err);
-                        }
-
-                        return res.send('updated ' + JSON.stringify(updated));
-                    });
-                }
-            }
-        )
-        ;
+            );
     }
 
-}
-;
-
+};

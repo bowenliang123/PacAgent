@@ -13,10 +13,8 @@ module.exports = {
      * @param res
      */
     staticProxy: function (req, res) {
-        let proxyPath = req.param('proxyPath').split(':');
-        let host = proxyPath[0];
-        let port = proxyPath[1];
-        return res.view('static-proxy', {proxyHost: host, proxyPort: port});
+        let proxyPath = req.param('proxyPath');
+        return res.view('static-proxy', {proxyPath: proxyPath});
     }
 }
 ;

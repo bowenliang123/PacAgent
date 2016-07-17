@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    view: 'index'
   },
 
   /***************************************************************************
@@ -49,6 +49,6 @@ module.exports.routes = {
 
   '/static/:proxyPath': 'StaticProxyController.staticProxy',
   
-  '/pac/:userName':'PacController.pac',
-  '/set/:userName/:proxyPath':'PacController.set',
+  '/pac/:name':'PacController.pac',
+  '/set/:name/:proxyPath':'PacController.set',
 };

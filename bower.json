@@ -1,0 +1,17 @@
+{
+  "name": "PacAgent",
+  "description": "a Sails application",
+  "main": "app.js",
+  "authors": [
+    "bowen"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/bowenliang123/PacAgent",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

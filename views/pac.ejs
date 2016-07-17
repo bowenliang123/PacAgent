@@ -1,6 +1,21 @@
-/** userName:<% if (userProxy) { %><%= userProxy.userName %> <% } %> **/
+<% if (proxy) { %>
+/**
+PAC file
 
+名称: <%= proxy.name %>
+创建时间: <%= proxy.createTime %>
+更新时间: <%= proxy.updateTime %>
+当前时间: <%= new Date() %>
+规则总数: <% if (proxy.rules && proxy.rules.length > 0) { %> <%= proxy.rules.length %> <% } else { %>0<% } %>
+**/
 
-function FindProxyForURL(url, host) {
-return "<% if (userProxy) { %>PROXY <%= userProxy.proxyHost %>:<%= userProxy.proxyPort %>; <% } %>DIRECT";
+function FindProxyForURL(url, host){
+return "<% if (proxy.rules && proxy.rules.length > 0) { %>PROXY <%- proxy.rules[0] %>;<% } %>DIRECT;";
 }
+<% } else { %>
+// 未找到指定路由信息
+// 默认全部直连
+function FindProxyForURL(url, host){
+return "DIRECT;";
+}
+<% } %>

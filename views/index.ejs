@@ -1,0 +1,21 @@
+<div ng-app="app">
+<div class="container" ng-controller="indexCtrl">
+    <h1>Console</h1>
+    <form>
+        <div class="form-group row">
+            <label for="inputProxyName" class="col-sm-2 form-control-label">ProxyName</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputProxyName" placeholder="ProxyName" ng-model="proxyName">
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary-outline" ng-click="haha()">
+                查询
+            </button>
+        </div>
+        <pre>{{text}}</pre>
+    </form>
+</div>
+
+<!--<script src="js/index.js"></script>-->
+</div>
