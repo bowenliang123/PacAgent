@@ -16,8 +16,13 @@ let renderPac = (res, viewName, proxy)=> {
     if (!res) {
         return;
     }
+
     //使用模板进行渲染, 显式要求不使用layout
-    return res.view('pac', {layout: '', proxy: proxy});
+    if (!proxy) {
+        return res.view('default-pac', {layout: ''});
+    } else {
+        return res.view('pac', {layout: '', proxy: proxy});
+    }
 };
 
 module.exports = {
@@ -34,15 +39,15 @@ module.exports = {
         })
             .populate('rules')
             .exec((err, proxy)=> {
-            if (err) {
-                return res.negotiate(err);
-            }
+                if (err) {
+                    return res.negotiate(err);
+                }
 
-            console.log(JSON.stringify(proxy));
+                console.log(JSON.stringify(proxy));
 
-            //渲染PAC文件
-            return renderPac(res, 'pac', proxy);
-        });
+                //渲染PAC文件
+                return renderPac(res, 'pac', proxy);
+            });
     },
 
 

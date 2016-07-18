@@ -1,4 +1,3 @@
-<% if (proxy) { %>
 /**
 PAC file
 
@@ -14,10 +13,3 @@ return "<% if (proxy.rules && proxy.rules.length > 0) {
     proxy.rules.forEach(function(rule){
         if (rule.isEnabled){ %>PROXY <%- rule.proxyPath %>;<%}}) } %>DIRECT;";
 }
-<% } else { %>
-// 未找到指定路由信息
-// 默认全部直连
-function FindProxyForURL(url, host){
-return "DIRECT;";
-}
-<% } %>
