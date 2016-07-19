@@ -1,15 +1,2 @@
-/**
-PAC file
-
-名称: <%= proxy.name %>
-创建时间: <%= proxy.createTime %>
-更新时间: <%= proxy.updateTime %>
-当前时间: <%= new Date() %>
-规则总数: <% if (proxy.rules) { %> <%= proxy.rules.length %> <% } else { %>0<% } %>
-**/
-
-function FindProxyForURL(url, host){
-return "<% if (proxy.rules && proxy.rules.length > 0) {
-    proxy.rules.forEach(function(rule){
-        if (rule.isEnabled){ %>PROXY <%- rule.proxyPath %>;<%}}) } %>DIRECT;";
-}
+function FindProxyForURL(url, host){return "<% if (proxy.rules && proxy.rules.length > 0) {    proxy.rules.forEach(function(rule){
+        if (rule.isEnabled){ %>PROXY <%- rule.proxyPath %>;<%}}) } %>DIRECT;";}
